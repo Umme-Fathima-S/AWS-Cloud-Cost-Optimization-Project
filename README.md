@@ -1,15 +1,15 @@
 # AWS-Cloud-Cost-Optimization-Project
 
-#Identifying Stale EBS Snapshots:
-#create a Lambda function that identifies EBS snapshots that are no longer associated with any active EC2 instance and deletes them to save on storage costs.
+Identifying Stale EBS Snapshots:
+ create a Lambda function that identifies EBS snapshots that are no longer associated with any active EC2 instance and deletes them to save on storage costs.
 
-#Description:
-#The Lambda function fetches all EBS snapshots owned by the same account ('self') and also retrieves a list of active EC2 instances (running and stopped). For each snapshot, it checks if the associated volume (if exists) is not associated with any active instance. If it finds a stale snapshot, it deletes it, effectively optimizing storage costs.
+Description:
+ The Lambda function fetches all EBS snapshots owned by the same account ('self') and also retrieves a list of active EC2 instances (running and stopped). For each snapshot, it checks if the associated volume (if exists) is not associated with any active instance. If it finds a stale snapshot, it deletes it, effectively optimizing storage costs.
 
-import boto3
+    import boto3
 
-def lambda_handler(event, context):
-    ec2 = boto3.client('ec2')
+    def lambda_handler(event, context):
+        ec2 = boto3.client('ec2')
 
     # Get all EBS snapshots
     response = ec2.describe_snapshots(OwnerIds=['self'])
